@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Mini SaaS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">Início</a>
+        {% if current_user.is_authenticated %}
+            <a href="/dashboard">Painel</a>
+            {% if not current_user.premium %}
+                <a href="/upgrade">Upgrade</a>
+            {% endif %}
+            <a href="/logout">Sair</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Registrar</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% for msg in messages %}
+                <p class="flash">{{ msg }}</p>
+            {% endfor %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

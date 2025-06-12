@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Minhas Tarefas</h2>
+<form method="post">
+    <input name="title" placeholder="Nova tarefa" required>
+    <button type="submit">Adicionar</button>
+</form>
+<ul>
+    {% for task in tasks %}
+        <li>
+            <a href="{{ url_for('complete', task_id=task.id) }}">
+                {% if task.completed %}<s>{{ task.title }}</s>{% else %}{{ task.title }}{% endif %}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
